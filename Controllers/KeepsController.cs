@@ -19,9 +19,10 @@ namespace keepr.Controllers
     public ActionResult<Keep> Post([FromBody] Keep newKeep)
     {
       Keep result = _repo.AddKeep(newKeep);
-      return Created("/api/keep/" + result.Id, result);
+      return Created("/api/keeps/" + result.Id, result);
     }
     // GET api/keeps/5
+    [HttpGet("{keepid}")]
     public ActionResult<Keep> Get(int keepid)
     {
       Keep result = _repo.GetById(keepid);
