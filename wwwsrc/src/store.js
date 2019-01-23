@@ -20,7 +20,9 @@ let api = Axios.create({
 export default new Vuex.Store({
   state: {
     user: {},
-    publicKeeps: []
+    publicKeeps: [],
+    vaults: [],
+    activeVault: {}
   },
   mutations: {
     setUser(state, user) {
@@ -28,6 +30,9 @@ export default new Vuex.Store({
     },
     setPublicKeeps(state, publicKeeps) {
       state.publicKeeps = publicKeeps
+    },
+    setVaults(state, vaults) {
+      state.vaults = vaults
     }
   },
   actions: {
@@ -39,6 +44,25 @@ export default new Vuex.Store({
         })
         .catch(err => {
           console.log('Cannot get public keeps')
+        })
+    },
+    getAllVaults({ commit, dispatch }) {
+      api.get('vaults/')
+        .then(res => {
+          console.log('user vaults', res.data)
+          commit("setVaults", res.data)
+        })
+        .catch(err => {
+          console.log('Cannot get vaults')
+        })
+    },
+    getKeepsByVaultId({ commit, dispatch }, vaultid) {
+      api.get('vaultkeeps/' + vaultid)
+        .then(res => {
+          console.log('keeps in vault', res.data)
+        })
+        .catch(err => {
+          console.log('Cannot get keeps in vault')
         })
     },
     // -------------- AUTH METHODS ------
