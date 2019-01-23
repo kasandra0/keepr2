@@ -33,6 +33,9 @@ export default new Vuex.Store({
     },
     setVaults(state, vaults) {
       state.vaults = vaults
+    },
+    setActiveVault(state, vault) {
+      state.activeVault = vault
     }
   },
   actions: {
@@ -57,9 +60,13 @@ export default new Vuex.Store({
         })
     },
     getKeepsByVaultId({ commit, dispatch }, vaultid) {
-      api.get('vaultkeeps/' + vaultid)
+      let promises = [api.get('vaults/' + vaultid), api.get('vaultkeeps/' + vaultid)]
+      Promise.all(promises)
         .then(res => {
-          console.log('keeps in vault', res.data)
+          let vault = res[0].data
+          vault.keeps = res[1].data
+          console.log("vault", vault)
+          commit("setActiveVault", vault)
         })
         .catch(err => {
           console.log('Cannot get keeps in vault')
