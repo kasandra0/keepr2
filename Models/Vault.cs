@@ -5,7 +5,7 @@ namespace keepr.Models
 {
   public class VaultKeep //Helper class
   {
-    [Required]
+    // [Required]
     public int Id { get; set; }
     [Required]
     public int VaultId { get; set; }
@@ -30,11 +30,5 @@ namespace keepr.Models
     [Required]
     public string UserId { get; set; }
     public string Description { get; set; }
-    public Vault(PreVault vaultData)
-    {
-      UserId = vaultData.UserId;
-      Name = vaultData.Name;
-      Description = vaultData.Description;
-    }
   }
 }

@@ -1,9 +1,17 @@
 <template>
-  <div id="app">
+  <div id="app container-fluid">
+    <navbar></navbar>
     <router-view />
   </div>
 </template>
-
+<script>
+  import navbar from "@/components/navbar.vue"
+  export default {
+    components: {
+      navbar
+    }
+  }
+</script>
 <style>
   #app {
     font-family: "Avenir", Helvetica, Arial, sans-serif;

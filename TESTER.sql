@@ -5,5 +5,13 @@
 
 -- ALTER TABLE keeps MODIFY description VARCHAR(255) DEFAULT "";
 
--- DELETE FROM vaults;
-SELECT * FROM vaults;
+-- DELETE FROM keeps;
+-- INSERT INTO vaultkeeps(vaultId, keepId) VALUES (6,2)
+-- SELECT * FROM keeps;
+-- SELECT * FROM keeps WHERE isPrivate = 0
+-- SELECT * FROM keeps WHERE userId = 	"5b0eed56-ed24-47fe-b496-a404cd7fc815";
+-- SELECT * FROM vaults;
+-- SELECT * FROM vaults WHERE userId = "5b0eed56-ed24-47fe-b496-a404cd7fc815";
+
+-- DELETE FROM vaultkeeps WHERE id = 4 AND userId = "5b0eed56-ed24-47fe-b496-a404cd7fc815";
+SELECT * FROM vaultkeeps;

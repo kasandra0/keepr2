@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Data;
 using Dapper;
 using keepr.Models;
@@ -11,9 +13,13 @@ namespace keepr.Repositories
     {
       _db = db;
     }
-    public Vault GetById(int vaultid)
+    public Vault GetVaultById(int vaultid)
     {
       return _db.QueryFirstOrDefault<Vault>($"SELECT * FROM vaults WHERE id = @vaultid", new { vaultid });
+    }
+    public IEnumerable<Vault> GetAllVaultsByUser(string userid)
+    {
+      return _db.Query<Vault>("SELECT * FROM vaults WHERE userId = @userid", new { userid });
     }
     public Vault AddVault(Vault newVault)
     {
@@ -24,6 +30,12 @@ namespace keepr.Repositories
       ", newVault);
       newVault.Id = id;
       return newVault;
+    }
+
+    internal bool DeleteVault(int vaultid)
+    {
+      int success = _db.Execute(@"DELETE FROM vaults WHERE id = @vaultid", new { vaultid });
+      return success != 0;
     }
   }
 }

@@ -8,7 +8,7 @@
         <form v-else @submit.prevent="register">
             <input type="text" v-model="newUser.username" placeholder="name">
             <input type="email" v-model="newUser.email" placeholder="email">
-            <input type="password" v-model="newUser.password" placeholder="password">
+            <input type="text" v-model="newUser.password" placeholder="password">
             <button type="submit">Create Account</button>
         </form>
         <div @click="loginForm = !loginForm">
@@ -22,8 +22,7 @@
     export default {
         name: "login",
         mounted() {
-            //checks for valid session
-            this.$store.dispatch("authenticate");
+
         },
         data() {
             return {

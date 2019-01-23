@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using keepr.Models;
 using keepr.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,19 @@ namespace keepr.Controllers
       Keep result = _repo.AddKeep(newKeep);
       return Created("/api/keeps/" + result.Id, result);
     }
+    // GET api/keeps -- all public keeps
+    [HttpGet]
+    public ActionResult<IEnumerable<Keep>> GetAllPublicKeeps()
+    {
+      return Ok(_repo.GetAllPublicKeeps());
+    }
+    // GET api/keeps/user -- all keeps by user
+    [HttpGet("user")]
+    public ActionResult<IEnumerable<Keep>> GetAllUserKeeps()
+    {
+      string userid = HttpContext.User.Identity.Name;
+      return Ok(_repo.GetAllUserKeeps(userid));
+    }
     // GET api/keeps/5
     [HttpGet("{keepid}")]
     public ActionResult<Keep> Get(int keepid)
@@ -32,5 +46,18 @@ namespace keepr.Controllers
       }
       return BadRequest();
     }
+    // Delete api/keeps
+    [HttpDelete("{keepid}")]
+    public ActionResult<string> DeleteKeep(int keepid)
+    {
+      string userid = HttpContext.User.Identity.Name;
+      if (_repo.DeleteKeep(keepid))
+      {
+        return Ok("Deleted Keep");
+      }
+      return BadRequest("Cannot to delete Keep!");
+    }
+
+
   }
 }
