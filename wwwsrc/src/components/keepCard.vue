@@ -4,6 +4,7 @@
     <div class="card-body">
       <h5 class="card-title">{{keepData.name}}</h5>
       <p>{{keepData.description}}</p>
+      <p>id# {{keepData.id}}</p>
     </div>
     <div class="card-footer">
       <i class="fas fa-desktop"></i>: {{keepData.views}}
@@ -15,7 +16,7 @@
 
 <script>
   export default {
-    name: "keep",
+    name: "keepCard",
     data() {
       return {
 

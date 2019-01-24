@@ -19,6 +19,8 @@ namespace keepr.Controllers
     [HttpPost]
     public ActionResult<Keep> Post([FromBody] Keep newKeep)
     {
+      newKeep.UserId = HttpContext.User.Identity.Name;
+
       Keep result = _repo.AddKeep(newKeep);
       return Created("/api/keeps/" + result.Id, result);
     }
@@ -51,13 +53,17 @@ namespace keepr.Controllers
     public ActionResult<string> DeleteKeep(int keepid)
     {
       string userid = HttpContext.User.Identity.Name;
-      if (_repo.DeleteKeep(keepid))
+      if (_repo.DeleteKeep(keepid, userid))
       {
         return Ok("Deleted Keep");
       }
       return BadRequest("Cannot to delete Keep!");
     }
-
-
+    [HttpPut("{keepid}/views")]
+    public ActionResult<int> IncreaseViews(int keepid)
+    {
+      int result = _repo.IncreaseViews(keepid);
+      return Ok(result);
+    }
   }
 }

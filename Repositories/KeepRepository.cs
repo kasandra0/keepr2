@@ -20,12 +20,11 @@ namespace keepr.Repositories
     {
       return _db.Query<Keep>("SELECT * FROM keeps WHERE userId = @userid", new { userid });
     }
-
     public Keep AddKeep(Keep newKeep)
     {
       int id = _db.ExecuteScalar<int>(@"
-      INSERT INTO keeps(name, img, userid, isPrivate)
-      VALUES(@name, @img, @userid, @isPrivate);
+      INSERT INTO keeps(name, img, userid, isPrivate, description)
+      VALUES(@name, @img, @userid, @isPrivate, @description);
       SELECT LAST_INSERT_ID();
       ", newKeep);
       newKeep.Id = id;
@@ -36,10 +35,18 @@ namespace keepr.Repositories
       return _db.QueryFirstOrDefault<Keep>($"SELECT * FROM keeps WHERE id = @keepid", new { keepid });
     }
 
-    public bool DeleteKeep(int keepid)
+    public bool DeleteKeep(int keepid, string userid)
     {
-      int success = _db.Execute(@"DELETE FROM keeps WHERE id = @keepid", new { keepid });
+      int success = _db.Execute(@"DELETE FROM keeps WHERE id = @keepid AND userId = @userid", new { keepid });
       return success != 0;
+    }
+    public int IncreaseViews(int keepid)
+    {
+      int success = _db.Execute(@"UPDATE keeps SET views = views+1
+      WHERE id = @keepid;", new { keepid });
+      return success;
+      //SQL UPDATE keeps  SET views =@views
+      //WHERE id =@keepid AND userid = @userid
     }
   }
 }

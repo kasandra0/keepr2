@@ -22,7 +22,9 @@ export default new Vuex.Store({
     user: {},
     publicKeeps: [],
     vaults: [],
-    activeVault: {}
+    activeVault: {},
+    userKeeps: [],
+    activeKeep: {}
   },
   mutations: {
     setUser(state, user) {
@@ -36,6 +38,12 @@ export default new Vuex.Store({
     },
     setActiveVault(state, vault) {
       state.activeVault = vault
+    },
+    setUserKeeps(state, keeps) {
+      state.userKeeps = keeps
+    },
+    setActiveKeep(state, keep) {
+      state.activeKeep = keep
     }
   },
   actions: {
@@ -49,6 +57,7 @@ export default new Vuex.Store({
           console.log('Cannot get public keeps')
         })
     },
+    // ===================VAULT METHODS ====================
     getAllVaults({ commit, dispatch }) {
       api.get('vaults/')
         .then(res => {
@@ -57,6 +66,16 @@ export default new Vuex.Store({
         })
         .catch(err => {
           console.log('Cannot get vaults')
+        })
+    },
+    createNewVault({ commit, dispatch }, newVault) {
+      api.post('vaults/', newVault)
+        .then(res => {
+          console.log(res.data)
+          dispatch('getAllVaults')
+        })
+        .catch(err => {
+          console.log('Cannot post new vault')
         })
     },
     getKeepsByVaultId({ commit, dispatch }, vaultid) {
@@ -70,6 +89,36 @@ export default new Vuex.Store({
         })
         .catch(err => {
           console.log('Cannot get keeps in vault')
+        })
+    },
+    // ===================KEEP METHODS ====================
+    getAllKeepsByUser({ commit, dispatch }) {
+      api.get('keeps/user')
+        .then(res => {
+          commit('setUserKeeps', res.data)
+        })
+        .catch(err => {
+          console.log('Cannot get all keeps by user')
+        })
+    },
+    createNewKeep({ commit, dispatch }, newKeep) {
+      api.post('keeps/', newKeep)
+        .then(res => {
+          console.log(res.data)
+          dispatch('getAllKeepsByUser')
+        })
+        .catch(err => {
+          console.log('Cannot create new keep')
+        })
+    },
+    getKeepById({ commit, dispatch }, keepid) {
+      api.get('keeps/' + keepid)
+        .then(res => {
+          console.log('keep', res.data)
+          commit('setActiveKeep', res.data)
+        })
+        .catch(err => {
+          console.log('Cannot get keep')
         })
     },
     // -------------- AUTH METHODS ------
@@ -87,7 +136,7 @@ export default new Vuex.Store({
       auth.get('authenticate')
         .then(res => {
           commit('setUser', res.data)
-          router.push({ name: 'home' })
+          // router.push({ name: 'home' })
         })
         .catch(e => {
           console.log('not authenticated')

@@ -4,28 +4,27 @@
       <div class="col-12">
         <h1>Dashboard</h1>
       </div>
-    </div>
-
-    <div class="row card-deck">
-      <div v-for="vault in vaults" class="col-12 col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">{{vault.name}}</h4>
-            <p>{{vault.description}}</p>
-          </div>
-          <div class="card-footer">
-
-          </div>
-        </div>
+      <div class="col-12">
       </div>
     </div>
+    <dashNav></dashNav>
+    <myVaults></myVaults>
+    <myKeeps></myKeeps>
 
   </div>
 </template>
 
 <script>
+  import myVaults from "@/components/myVaults.vue"
+  import myKeeps from "@/components/myKeeps.vue"
+  import dashNav from "@/components/dashNav.vue"
   export default {
     name: 'Dashboard',
+    components: {
+      dashNav,
+      myVaults,
+      myKeeps
+    },
     data() {
       return {
 
@@ -33,13 +32,19 @@
     },
     mounted() {
       this.$store.dispatch('getAllVaults')
+      this.$store.dispatch('getAllKeepsByUser')
+
     },
     computed: {
       vaults() {
         return this.$store.state.vaults
       }
     },
-    methods: {}
+    methods: {
+      goToVaultView(vaultId) {
+        // this.$router.push({ name: 'vault', params: { vaultId } })
+      }
+    }
   }
 
 </script>

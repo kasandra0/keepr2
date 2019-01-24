@@ -7,18 +7,18 @@
       </div>
     </div>
     <div class="row card-collumns">
-      <keep v-for="keep in vault.keeps" :keepData="keep" class="col-12 col-sm-6 col-md-4 col-lg-3"></keep>
+      <keepCard v-for="keep in vault.keeps" :keepData="keep" class="col-12 col-sm-6 col-md-4 col-lg-3"></keepCard>
     </div>
   </div>
 </template>
 
 <script>
-  import keep from "@/components/keep.vue"
+  import keepCard from "@/components/keepCard.vue"
 
   export default {
     name: 'Vault',
     components: {
-      keep
+      keepCard
     },
     data() {
       return {}
