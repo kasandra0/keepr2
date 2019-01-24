@@ -11,6 +11,7 @@
             <p>{{vault.description}}</p>
           </div>
           <div class="card-footer">
+            <button @click="" type="button" class="btn btn-danger">Delete Vault</button>
           </div>
         </router-link>
       </div>
@@ -41,7 +42,11 @@
     mounted() {
       this.$store.dispatch('getAllVaults')
     },
-    methods: {}
+    methods: {
+      deleteVault(vaultId) {
+
+      }
+    }
   }
 
 </script>

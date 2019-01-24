@@ -49,10 +49,10 @@
         this.$store.dispatch('deleteKeep', this.$route.params.keepid)
       },
       addKeepToVault() {
-        if (Number.isInteger(selectedVault)) {
+        if (Number.isInteger(this.selectedVault)) {
           let vaultkeep = {
-            vaultId: selectedVault,
-            keepId: activeKeep.id
+            vaultId: this.selectedVault,
+            keepId: this.activeKeep.id
           }
           this.$store.dispatch('addKeepToVault', vaultkeep)
         } else {

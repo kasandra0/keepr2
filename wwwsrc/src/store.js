@@ -57,7 +57,8 @@ export default new Vuex.Store({
           console.log('Cannot get public keeps')
         })
     },
-    // ===================VAULT METHODS ====================
+    //=========VAULT METHODS ====================
+    //#region 
     getAllVaults({ commit, dispatch }) {
       api.get('vaults/')
         .then(res => {
@@ -91,7 +92,9 @@ export default new Vuex.Store({
           console.log('Cannot get keeps in vault')
         })
     },
-    // ===================KEEP METHODS ====================
+    //#endregion
+    // ========KEEP METHODS ====================
+    //#region 
     getAllKeepsByUser({ commit, dispatch }) {
       api.get('keeps/user')
         .then(res => {
@@ -125,7 +128,6 @@ export default new Vuex.Store({
       vaultkeep.UserId = "fake-userId"
       api.post('vaultkeeps/', vaultkeep)
         .then(res => {
-          debugger
           router.push({ name: 'vault', params: { vaultid: res.data.vaultId } })
         })
         .catch(err => {
@@ -150,7 +152,9 @@ export default new Vuex.Store({
           console.log('Cannot increment views')
         })
     },
-    // -------------- AUTH METHODS ------
+    //#endregion
+    // ------------ AUTH METHODS ---------------
+    //#region
     register({ commit, dispatch }, newUser) {
       auth.post('register', newUser)
         .then(res => {
@@ -181,6 +185,7 @@ export default new Vuex.Store({
           console.log('Login Failed')
         })
     }
-    // -----------------------------------
+    // ---------
+    //#endregion --------------------------
   }
 })
