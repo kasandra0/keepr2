@@ -7,7 +7,13 @@
             <img :src="activeKeep.img" class="card-img-top">
             <div class="card-body">
               <h3>{{activeKeep.description}}</h3>
+              <i class="fas fa-desktop"></i> Views: {{activeKeep.views}}
+              <i class="fas fa-thumbtack"></i> Keeps: {{activeKeep.keeps}}
+              <i class="fas fa-bullhorn"></i> Shares: {{activeKeep.shares}}
             </div>
+        </div>
+        <div v-if="true">
+          <button @click.prevent="deleteKeep()" type="button" class="btn btn-danger">Delete</button>
         </div>
       </div>
     </div>
@@ -29,8 +35,13 @@
     },
     mounted() {
       this.$store.dispatch('getKeepById', this.$route.params.keepid)
+      this.$store.dispatch('incrementKeepViews', this.$route.params.keepid)
     },
-    methods: {}
+    methods: {
+      deleteKeep() {
+        this.$store.dispatch('deleteKeep', this.$route.params.keepid)
+      }
+    }
   }
 
 </script>

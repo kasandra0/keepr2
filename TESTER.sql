@@ -14,4 +14,5 @@
 -- SELECT * FROM vaults WHERE userId = "5b0eed56-ed24-47fe-b496-a404cd7fc815";
 
 -- DELETE FROM vaultkeeps WHERE id = 4 AND userId = "5b0eed56-ed24-47fe-b496-a404cd7fc815";
-SELECT * FROM vaultkeeps;
+UPDATE keeps SET views = views+1 WHERE id = 11;
+SELECT * FROM keeps;

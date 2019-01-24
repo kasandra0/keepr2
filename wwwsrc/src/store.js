@@ -121,6 +121,24 @@ export default new Vuex.Store({
           console.log('Cannot get keep')
         })
     },
+    deleteKeep({ commit, dispatch }, keepid) {
+      api.delete('keeps/' + keepid)
+        .then(res => {
+          console.log(res.data)
+          router.push({ name: 'dashboard' })
+        })
+        .catch(err => {
+          console.log('Cannot delete keep')
+        })
+    },
+    incrementKeepViews({ commit, dispatch }, keepid) {
+      api.put(`keeps/${keepid}/views`)
+        .then(res => {
+          console.log(res.data)
+        }).catch(err => {
+          console.log('Cannot increment views')
+        })
+    },
     // -------------- AUTH METHODS ------
     register({ commit, dispatch }, newUser) {
       auth.post('register', newUser)

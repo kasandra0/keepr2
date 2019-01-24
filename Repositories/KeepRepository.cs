@@ -37,14 +37,14 @@ namespace keepr.Repositories
 
     public bool DeleteKeep(int keepid, string userid)
     {
-      int success = _db.Execute(@"DELETE FROM keeps WHERE id = @keepid AND userId = @userid", new { keepid });
+      int success = _db.Execute(@"DELETE FROM keeps WHERE id = @keepid AND userId = @userid", new { keepid, userid });
       return success != 0;
     }
-    public int IncreaseViews(int keepid)
+    public Keep IncreaseViews(int keepid)
     {
       int success = _db.Execute(@"UPDATE keeps SET views = views+1
       WHERE id = @keepid;", new { keepid });
-      return success;
+      return _db.QueryFirstOrDefault<Keep>($"SELECT * FROM keeps WHERE id = @keepid", new { keepid });
       //SQL UPDATE keeps  SET views =@views
       //WHERE id =@keepid AND userid = @userid
     }

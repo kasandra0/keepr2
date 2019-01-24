@@ -1,5 +1,5 @@
 <template>
-  <div class="card p-2">
+  <div class="card p-2" @click.prevent="goToKeepView(keepData.id)">
     <img :src="keepData.img" class="card-img-top">
     <div class="card-body">
       <h5 class="card-title">{{keepData.name}}</h5>
@@ -24,7 +24,11 @@
     },
     props: ['keepData'],
     computed: {},
-    methods: {}
+    methods: {
+      goToKeepView(keepid) {
+        this.$router.push({ name: 'keep', params: { keepid: keepid } })
+      }
+    }
   }
 
 </script>

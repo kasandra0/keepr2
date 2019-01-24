@@ -57,13 +57,17 @@ namespace keepr.Controllers
       {
         return Ok("Deleted Keep");
       }
-      return BadRequest("Cannot to delete Keep!");
+      return BadRequest("Cannot delete Keep!");
     }
     [HttpPut("{keepid}/views")]
-    public ActionResult<int> IncreaseViews(int keepid)
+    public ActionResult<Keep> IncreaseViews(int keepid)
     {
-      int result = _repo.IncreaseViews(keepid);
+      Keep result = _repo.IncreaseViews(keepid);
       return Ok(result);
     }
+    // [HttpPut("{keepid}/edit")]
+    // public ActionResult<Keep> EditKeep([FromBody] Keep keep){
+
+    // }
   }
 }
