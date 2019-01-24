@@ -12,9 +12,13 @@
               <i class="fas fa-bullhorn"></i> Shares: {{activeKeep.shares}}
             </div>
         </div>
-        <div v-if="true">
-          <button @click.prevent="deleteKeep()" type="button" class="btn btn-danger">Delete</button>
-        </div>
+        <select v-model="selectedVault" class="custom-select custom-select-lg mb-3">
+          <option selected>Choose a Vault</option>
+          <option v-for="vault in vaults" :value="vault.id">{{vault.name}}</option>
+        </select>
+        <button @click.prevent="addKeepToVault()" type="button" class="btn btn-primary">Keep it</button>
+        <button @click.prevent="deleteKeep()" type="button" class="btn btn-danger">Delete</button>
+        {{selectedVault}}
       </div>
     </div>
   </div>
@@ -25,12 +29,15 @@
     name: 'Keep',
     data() {
       return {
-
+        selectedVault: {}
       }
     },
     computed: {
       activeKeep() {
         return this.$store.state.activeKeep
+      },
+      vaults() {
+        return this.$store.state.vaults
       }
     },
     mounted() {
@@ -40,6 +47,17 @@
     methods: {
       deleteKeep() {
         this.$store.dispatch('deleteKeep', this.$route.params.keepid)
+      },
+      addKeepToVault() {
+        if (Number.isInteger(selectedVault)) {
+          let vaultkeep = {
+            vaultId: selectedVault,
+            keepId: activeKeep.id
+          }
+          this.$store.dispatch('addKeepToVault', vaultkeep)
+        } else {
+          console.log("select a vault")
+        }
       }
     }
   }

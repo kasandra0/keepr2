@@ -121,6 +121,17 @@ export default new Vuex.Store({
           console.log('Cannot get keep')
         })
     },
+    addKeepToVault({ commit, dispatch }, vaultkeep) {
+      vaultkeep.UserId = "fake-userId"
+      api.post('vaultkeeps/', vaultkeep)
+        .then(res => {
+          debugger
+          router.push({ name: 'vault', params: { vaultid: res.data.vaultId } })
+        })
+        .catch(err => {
+          console.log('Cannot post keep to vault')
+        })
+    },
     deleteKeep({ commit, dispatch }, keepid) {
       api.delete('keeps/' + keepid)
         .then(res => {
@@ -154,7 +165,7 @@ export default new Vuex.Store({
       auth.get('authenticate')
         .then(res => {
           commit('setUser', res.data)
-          // router.push({ name: 'home' })
+          dispatch('getAllVaults')
         })
         .catch(e => {
           console.log('not authenticated')
