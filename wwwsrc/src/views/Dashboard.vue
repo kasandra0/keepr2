@@ -7,9 +7,14 @@
       <div class="col-12">
       </div>
     </div>
-    <dashNav></dashNav>
-    <myVaults></myVaults>
-    <myKeeps></myKeeps>
+    <div class="row">
+      <div class="col-10 offset-1 p-2 text-center">
+        <button @click.prevent="dashView= 'vaults'" type="button" class="btn btn-outline-primary m-1">Vaults</button>
+        <button @click.prevent="dashView= 'keeps'" type="button" class="btn btn-outline-primary m-1">Keeps</button>
+      </div>
+    </div>
+    <myVaults v-if="dashView== 'vaults'"></myVaults>
+    <myKeeps v-if="dashView=='keeps'"></myKeeps>
 
   </div>
 </template>
@@ -17,17 +22,15 @@
 <script>
   import myVaults from "@/components/myVaults.vue"
   import myKeeps from "@/components/myKeeps.vue"
-  import dashNav from "@/components/dashNav.vue"
   export default {
     name: 'Dashboard',
     components: {
-      dashNav,
       myVaults,
       myKeeps
     },
     data() {
       return {
-
+        dashView: 'vaults'
       }
     },
     mounted() {

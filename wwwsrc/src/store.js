@@ -199,6 +199,7 @@ export default new Vuex.Store({
       auth.get('authenticate')
         .then(res => {
           commit('setUser', res.data)
+          console.log('user ', res.data)
           dispatch('getAllVaults')
         })
         .catch(e => {
@@ -213,6 +214,14 @@ export default new Vuex.Store({
         })
         .catch(e => {
           console.log('Login Failed')
+        })
+    },
+    logout({ commit, dispatch }) {
+      auth.delete('logout')
+        .then(res => {
+          commit('setUser', {})
+          console.log('user logged out', res.data)
+          router.push({ name: 'home' })
         })
     }
     // ---------

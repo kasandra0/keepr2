@@ -13,8 +13,6 @@
         </div>
         <button @click.prevent="CreateNewVault()" class="btn btn-primary">Save</button>
       </form>
-      {{vault.name}}
-      {{vault.description}}
     </div>
   </div>
 </template>

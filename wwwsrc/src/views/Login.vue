@@ -1,17 +1,32 @@
 <template>
     <div class="login">
-        <form v-if="loginForm" @submit.prevent="loginUser">
-            <input type="email" v-model="creds.email" placeholder="email">
-            <input type="password" v-model="creds.password" placeholder="password">
+        <form v-if="loginForm" @submit.prevent="loginUser" class="col-10 offset-1 col-sm-6 m-3">
+            <div class="form-group">
+                <label for="">Email</label>
+                <input type="email" v-model="creds.email" class="form-control" placeholder="email">
+            </div>
+            <div class="form-group">
+                <label for="">Password</label>
+                <input type="password" v-model="creds.password" class="form-control" placeholder="password">
+            </div>
             <button type="submit">Login</button>
         </form>
-        <form v-else @submit.prevent="register">
-            <input type="text" v-model="newUser.username" placeholder="name">
-            <input type="email" v-model="newUser.email" placeholder="email">
-            <input type="text" v-model="newUser.password" placeholder="password">
+        <form v-else @submit.prevent="register" class="col-10 offset-1 col-sm-6 m-3">
+            <div class="form-group">
+                <label for="">Username</label>
+                <input type="text" v-model="newUser.username" class="form-control" placeholder="name">
+            </div>
+            <div class="form-group">
+                <label for="">Email</label>
+                <input type="email" v-model="newUser.email" class="form-control" placeholder="email">
+            </div>
+            <div class="form-group">
+                <label for="">Password</label>
+                <input type="text" v-model="newUser.password" class="form-control" placeholder="password">
+            </div>
             <button type="submit">Create Account</button>
         </form>
-        <div @click="loginForm = !loginForm">
+        <div @click="loginForm = !loginForm" class="text-center">
             <p v-if="loginForm">No account Click to Register</p>
             <p v-else>Already have an account click to Login</p>
         </div>
