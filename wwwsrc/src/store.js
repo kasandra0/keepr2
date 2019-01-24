@@ -79,6 +79,16 @@ export default new Vuex.Store({
           console.log('Cannot post new vault')
         })
     },
+    deleteVault({ commit, dispatch }, vaultid) {
+      api.delete('vaults/' + vaultid)
+        .then(res => {
+          console.log(res.data)
+          dispatch('getAllVaults')
+        })
+        .catch(err => {
+          console.log('Cannot delete vault')
+        })
+    },
     getKeepsByVaultId({ commit, dispatch }, vaultid) {
       let promises = [api.get('vaults/' + vaultid), api.get('vaultkeeps/' + vaultid)]
       Promise.all(promises)

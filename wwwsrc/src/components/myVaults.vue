@@ -10,10 +10,10 @@
             <h4 class="card-title">{{vault.name}}</h4>
             <p>{{vault.description}}</p>
           </div>
-          <div class="card-footer">
-            <button @click="" type="button" class="btn btn-danger">Delete Vault</button>
-          </div>
         </router-link>
+        <div class="card-footer">
+          <button @click="deleteVault(vault.id)" type="button" class="btn btn-danger">Delete Vault</button>
+        </div>
       </div>
     </div>
     <!-- Create vault form -->
@@ -44,7 +44,7 @@
     },
     methods: {
       deleteVault(vaultId) {
-
+        this.$store.dispatch('deleteVault', vaultId)
       }
     }
   }
