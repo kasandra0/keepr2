@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="row card-collumns">
-      <keepCard v-for="keep in vault.keeps" :keepData="keep" class="col-12 col-sm-6 col-md-4 col-lg-3"></keepCard>
+      <keepCard v-for="keep in vault.keeps" :keepData="keep" :displayRemove="true" class="col-12 col-sm-6 col-md-4 col-lg-3"></keepCard>
     </div>
   </div>
 </template>
@@ -31,7 +31,9 @@
     mounted() {
       this.$store.dispatch('getKeepsByVaultId', this.$route.params.vaultid)
     },
-    methods: {}
+    methods: {
+
+    }
   }
 
 </script>

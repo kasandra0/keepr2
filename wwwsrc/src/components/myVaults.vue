@@ -5,14 +5,14 @@
         <h4>My Vaults</h4>
       </div>
       <div v-for="vault in vaults" class="col-12 col-md-5 m-1">
-        <router-link :to="{name: 'vault', params:{vaultid: vault.id}}" class="card">
-          <div class="card-body">
+        <div class="card">
+          <div class="card-body" @click.prevent="goToVaultView(vault.id)">
             <h4 class="card-title">{{vault.name}}</h4>
             <p>{{vault.description}}</p>
           </div>
-        </router-link>
-        <div class="card-footer">
-          <button @click="deleteVault(vault.id)" type="button" class="btn btn-danger">Delete Vault</button>
+          <div class="card-footer">
+            <button @click="deleteVault(vault.id)" type="button" class="btn btn-danger">Delete Vault</button>
+          </div>
         </div>
       </div>
     </div>
@@ -43,6 +43,9 @@
       this.$store.dispatch('getAllVaults')
     },
     methods: {
+      goToVaultView(vaultId) {
+        this.$store.dispatch('getActiveVault', vaultId)
+      },
       deleteVault(vaultId) {
         this.$store.dispatch('deleteVault', vaultId)
       }

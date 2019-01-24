@@ -69,6 +69,16 @@ export default new Vuex.Store({
           console.log('Cannot get vaults')
         })
     },
+    getActiveVault({ commit, dispatch }, vaultid) {
+      api.get('vaults/' + vaultid)
+        .then(res => {
+          commit('setActiveVault', res.data)
+          router.push({ name: 'vault', params: { vaultid: res.data.id } })
+        })
+        .catch(err => {
+          console.log('Cannot get vault')
+        })
+    },
     createNewVault({ commit, dispatch }, newVault) {
       api.post('vaults/', newVault)
         .then(res => {
@@ -100,6 +110,16 @@ export default new Vuex.Store({
         })
         .catch(err => {
           console.log('Cannot get keeps in vault')
+        })
+    },
+    removeKeepFromVault({ commit, dispatch }, vaultkeep) {
+      vaultkeep.UserId = "fake-userid"
+      api.put('/vaultkeeps', vaultkeep)
+        .then(res => {
+          console.log('remove keep', res.data)
+          dispatch('getKeepsByVaultId')
+        }).catch(err => {
+          console.log('Cannot remove keep from vault')
         })
     },
     //#endregion

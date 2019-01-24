@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="row card-collumns">
-      <keepCard v-for="k in publicKeeps" :keepData="k" class="col-12 col-sm-6 col-md-4 col-lg-3"></keepCard>
+      <keepCard v-for="k in publicKeeps" :keepData="k" :displayRemove="false" class="col-12 col-sm-6 col-md-4 col-lg-3"></keepCard>
     </div>
   </div>
 </template>

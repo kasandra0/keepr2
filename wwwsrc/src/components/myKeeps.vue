@@ -4,7 +4,7 @@
       <div class="col-12">
         <h4>My Keeps</h4>
       </div>
-      <keepCard v-for="k in keeps" :keepData="k" class="col-12 col-sm-6 col-md-4 col-lg-3"></keepCard>
+      <keepCard v-for="k in keeps" :keepData="k" :displayRemove="false" class="col-12 col-sm-6 col-md-4 col-lg-3"></keepCard>
     </div>
     <keepForm></keepForm>
   </div>
