@@ -156,6 +156,7 @@ export default new Vuex.Store({
     },
     addKeepToVault({ commit, dispatch }, vaultkeep) {
       vaultkeep.UserId = "fake-userId"
+      // let promises = [api.put(`keeps/${keepid}/keepcount`)]
       api.post('vaultkeeps/', vaultkeep)
         .then(res => {
           router.push({ name: 'vault', params: { vaultid: res.data.vaultId } })
@@ -180,6 +181,14 @@ export default new Vuex.Store({
           console.log(res.data)
         }).catch(err => {
           console.log('Cannot increment views')
+        })
+    },
+    increaseKeepCount({ commit, dispatch }, keepid) {
+      api.put(`keeps/${keepid}/keepcount`)
+        .then(res => {
+          console.log(res.data)
+        }).catch(err => {
+          console.log('Cannot increment keeps')
         })
     },
     //#endregion

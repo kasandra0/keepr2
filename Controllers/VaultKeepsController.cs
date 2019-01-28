@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using keepr.Models;
 using keepr.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace keepr.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
+  [Authorize]
   public class VaultKeepsController : ControllerBase
   {
     private readonly VaultKeepsRepository _repo;
@@ -15,7 +17,7 @@ namespace keepr.Controllers
     {
       _repo = repo;
     }
-    //POST api/vaultkeeps
+    //POST api/vaultkeeps -- add keep 
     [HttpPost]
     public VaultKeep Post([FromBody] VaultKeep vk)
     {

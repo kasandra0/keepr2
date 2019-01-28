@@ -3,14 +3,14 @@
     <div class="row">
       <div class="col-10 offset-1 text-center">
         <div class="card border-0">
-          <h1>{{activeKeep.name}}</h1ß>
-            <img :src="activeKeep.img" class="card-img-top">
-            <div class="card-body">
-              <h3>{{activeKeep.description}}</h3>
-              <i class="fas fa-desktop"></i> Views: {{activeKeep.views}}
-              <i class="fas fa-thumbtack"></i> Keeps: {{activeKeep.keeps}}
-              <i class="fas fa-bullhorn"></i> Shares: {{activeKeep.shares}}
-            </div>
+          <h1>{{activeKeep.name}}</h1>
+          <img :src="activeKeep.img" class="card-img-top">
+          <div class="card-body">
+            <h3>{{activeKeep.description}}</h3>
+            <i class="fas fa-desktop"></i> Views: {{activeKeep.views}}
+            <i class="fas fa-thumbtack"></i> Keeps: {{activeKeep.keeps}}
+            <i class="fas fa-bullhorn"></i> Shares: {{activeKeep.shares}}
+          </div>
         </div>
         <select v-model="selectedVault" class="custom-select custom-select-lg mb-3">
           <option selected>Choose a Vault</option>

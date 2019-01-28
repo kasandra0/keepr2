@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using keepr.Models;
 using keepr.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace keepr.Controllers
@@ -17,6 +18,7 @@ namespace keepr.Controllers
     }
     // POST api/keeps
     [HttpPost]
+    [Authorize]
     public ActionResult<Keep> Post([FromBody] Keep newKeep)
     {
       newKeep.UserId = HttpContext.User.Identity.Name;
@@ -32,6 +34,7 @@ namespace keepr.Controllers
     }
     // GET api/keeps/user -- all keeps by user
     [HttpGet("user")]
+    [Authorize]
     public ActionResult<IEnumerable<Keep>> GetAllUserKeeps()
     {
       string userid = HttpContext.User.Identity.Name;
@@ -50,6 +53,7 @@ namespace keepr.Controllers
     }
     // Delete api/keeps
     [HttpDelete("{keepid}")]
+    [Authorize]
     public ActionResult<string> DeleteKeep(int keepid)
     {
       string userid = HttpContext.User.Identity.Name;
@@ -59,10 +63,17 @@ namespace keepr.Controllers
       }
       return BadRequest("Cannot delete Keep!");
     }
+    // PUT increase view count
     [HttpPut("{keepid}/views")]
     public ActionResult<Keep> IncreaseViews(int keepid)
     {
       Keep result = _repo.IncreaseViews(keepid);
+      return Ok(result);
+    }
+    [HttpPut("{keepid}/keepcount")]
+    public ActionResult<Keep> IncreaseKeepCount(int keepid)
+    {
+      Keep result = _repo.IncreaseKeepCount(keepid);
       return Ok(result);
     }
     // [HttpPut("{keepid}/edit")]

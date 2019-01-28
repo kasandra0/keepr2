@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using Dapper;
@@ -47,6 +48,13 @@ namespace keepr.Repositories
       return _db.QueryFirstOrDefault<Keep>($"SELECT * FROM keeps WHERE id = @keepid", new { keepid });
       //SQL UPDATE keeps  SET views =@views
       //WHERE id =@keepid AND userid = @userid
+    }
+
+    internal Keep IncreaseKeepCount(int keepid)
+    {
+      int success = _db.Execute(@"UPDATE keeps SET keeps = keeps+1
+      WHERE id = @keepid;", new { keepid });
+      return _db.QueryFirstOrDefault<Keep>($"SELECT * FROM keeps WHERE id = @keepid", new { keepid });
     }
   }
 }
