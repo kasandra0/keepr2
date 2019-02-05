@@ -156,10 +156,12 @@ export default new Vuex.Store({
     },
     addKeepToVault({ commit, dispatch }, vaultkeep) {
       vaultkeep.UserId = "fake-userId"
-      // let promises = [api.put(`keeps/${keepid}/keepcount`)]
-      api.post('vaultkeeps/', vaultkeep)
+      let promises = [api.post('vaultkeeps/', vaultkeep),
+      api.put(`keeps/${vaultkeep.vaultId}/keepcount`)]
+      Promise.all(promises)
         .then(res => {
-          router.push({ name: 'vault', params: { vaultid: res.data.vaultId } })
+          router.push({ name: 'vault', params: { vaultid: res[0].data.vaultId } })
+          console.log("addkeeptoVault", res[1].data)
         })
         .catch(err => {
           console.log('Cannot post keep to vault')

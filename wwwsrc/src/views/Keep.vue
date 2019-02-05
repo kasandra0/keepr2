@@ -41,8 +41,8 @@
       }
     },
     mounted() {
-      this.$store.dispatch('getKeepById', this.$route.params.keepid)
       this.$store.dispatch('incrementKeepViews', this.$route.params.keepid)
+      this.$store.dispatch('getKeepById', this.$route.params.keepid)
     },
     methods: {
       deleteKeep() {
